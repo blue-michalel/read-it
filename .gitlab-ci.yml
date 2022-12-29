@@ -1,0 +1,38 @@
+image: node:latest
+
+variables:
+  GIT_SSL_NO_VERIFY: "1"
+
+.docker-gitlab-runner: &docker-gitlab-runner
+  tags:
+    - docker
+    
+stages:
+  - prepare
+  - test
+  - build
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+install_dependencies:
+  <<: *docker-gitlab-runner
+  stage: prepare
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+run_test:
+  <<: *docker-gitlab-runner
+  stage: test
+  script: npm test
+
+run_build:
+  <<: *docker-gitlab-runner
+  stage: build
+  script:
+    - npm run build
