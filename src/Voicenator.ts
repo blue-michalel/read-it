@@ -1,6 +1,4 @@
-import { VoicenatorConfig } from "@/config";
-
-interface SpeechSynthesisVoice{
+interface SpeechSynthesisVoice {
   default: boolean;
   lang: string;
   localService: boolean;
@@ -10,11 +8,10 @@ interface SpeechSynthesisVoice{
 
 class Voicenator {
   config: VoicenatorConfig;
-  // eslint-disable-next-line
   msg: any;
   voices: Array<SpeechSynthesisVoice>;
 
-  constructor(config) {
+  constructor(config: VoicenatorConfig) {
     this.msg = new SpeechSynthesisUtterance();
     this.voices = [];
     this.config = config;
@@ -23,9 +20,9 @@ class Voicenator {
   setVoice = (event: Event): void => {
     console.log("Changing voice...");
     const target = event.target as HTMLInputElement;
-    const { value, }: { value: string } = target;
+    const { value }: { value: string } = target;
 
-    const voice = this.voices.find(voice => voice.name === value);
+    const voice = this.voices.find((voice) => voice.name === value);
     this.msg.voice = voice;
     this.toggle();
   };
@@ -33,10 +30,10 @@ class Voicenator {
   populateVoices = (e: Event): void => {
     const target = e.target as Window["speechSynthesis"];
     this.voices = target.getVoices();
-    console.log(this.voices);
+
     const voiceOptions = this.voices
       .map(
-        voice =>
+        (voice) =>
           `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`
       )
       .join("");
@@ -46,7 +43,7 @@ class Voicenator {
 
   setOption = (event: Event): void => {
     const target = event.target as HTMLInputElement;
-    const { name, value, } = target;
+    const { name, value } = target;
     this.msg[name] = value;
 
     this.toggle();
@@ -63,8 +60,8 @@ class Voicenator {
   setup = (): void => {
     speechSynthesis.addEventListener("voiceschanged", this.populateVoices);
     this.config.voicesDropdown.addEventListener("change", this.setVoice);
-    this.config.options.forEach(option =>
-      option.addEventListener("change", e => this.setOption(e))
+    this.config.options.forEach((option) =>
+      option.addEventListener("change", (e) => this.setOption(e))
     );
 
     this.config.speakButton.addEventListener("click", () => this.toggle());

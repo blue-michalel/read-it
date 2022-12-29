@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "outDir": "./dist/",
     "noImplicitAny": false,
-    "module": "es6",
+    "module": "ESNext",
     "target": "es5",
     "jsx": "react",
     "allowJs": false,
