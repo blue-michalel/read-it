@@ -6,8 +6,6 @@ module.exports = env => {
   const { type } = env;
   const output = type === "development" ? "public" : "dist";
 
-  console.log("output", output);
-
   return {
     entry: "./src/index.ts",
     module: {
@@ -24,15 +22,26 @@ module.exports = env => {
       ]
     },
     resolve: {
-      extensions: [".tsx", ".ts", ".js"]
+      extensions: [".tsx", ".ts", ".js"],
+      alias: {
+        "@": path.resolve(__dirname, "src/")
+      }
     },
     output: {
       filename: "main.js",
       path: path.resolve(__dirname, output)
     },
     devServer: {
+      stats: {
+        children: false, // Hide children information
+        maxModules: 0 // Set the maximum number of modules to be shown
+      },
       contentBase: path.join(__dirname, output),
       compress: true,
+      overlay: true,
+      open: true,
+      watchContentBase: true,
+
       port
     }
   };

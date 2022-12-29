@@ -1,6 +1,6 @@
 # Browsers that we support
 
 last 2 versions,
-safari >= 10
-IE >= 11
+safari >= 10,
+not IE 11,
 not dead
