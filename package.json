@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --config webpack.config.js --mode=development --env.type=development &&  webpack-dev-server --config webpack.config.js --mode=development --env.type=development",
-    "build": "webpack --config webpack.config.js --mode=production --env.type=production",
+    "build": "npm run lint && webpack --config webpack.config.js --mode=production --env.type=production",
     "lint": "npx eslint ./src/**/*.ts",
     "lint:fix": "npx eslint ./src/**/*.ts --fix"
   },

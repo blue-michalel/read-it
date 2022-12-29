@@ -1,4 +1,5 @@
-const someMagic: string = "🦄";
-export default () => {
-  console.log("Works!", someMagic);
-};
+import Voicenator from "./Voicenator";
+import config from "./config";
+
+const SpeechSynthesis = new Voicenator(config);
+SpeechSynthesis.setup();
